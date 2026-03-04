@@ -14,7 +14,7 @@
             header("Location: usersTable.php");
             exit();
         } else {
-            echo "Wrong username or password";
+            header("Location: login.php?invalid=1");
         }
     } catch(PDOException $e) {
         die("Connection failed: " . $e->getMessage());

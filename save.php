@@ -14,7 +14,21 @@ $code       = $_POST["code"];
 $realcode   = $_POST["realcode"];
 $created_at = date("Y-m-d H:i:s");
 
-if ($fname && $lname && $address && $gender && $department && $skills && $code && $realcode) {
+
+$image = $_FILES["image"];
+$allowed = ["image/jpeg","image/png"];
+if(!in_array($image["type"], $allowed)){
+    die("Only JPG and PNG allowed");
+}
+if($image["size"] > 2000000){
+    die("Image too large");
+}
+$folder = "uploads/";
+$filename = time() . "_" . $image["name"];
+move_uploaded_file($image["tmp_name"], $folder . $filename);
+
+
+if ($fname && $lname && $address && $gender && $department && $skills && $code && $realcode && $username && $password && $image) {
     if($code != $realcode){
         die("Wrong Verification Code");
     }
@@ -22,9 +36,9 @@ if ($fname && $lname && $address && $gender && $department && $skills && $code &
         $pdo = new PDO("mysql:host=localhost;dbname=php_day3", "tohamy", "Arcane.xxx1");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO emp
-        (fname, lname, address, country, gender, skills, username, password, department)
+        (fname, lname, address, country, gender, skills, username, password, department, image)
         VALUES
-        (:fname, :lname, :address, :country, :gender, :skills, :username, :password, :department)";
+        (:fname, :lname, :address, :country, :gender, :skills, :username, :password, :department, :image)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ":fname"      => $fname,
@@ -35,7 +49,8 @@ if ($fname && $lname && $address && $gender && $department && $skills && $code &
             ":skills"     => $skills,
             ":username"   => $username,
             ":password"   => $password,
-            ":department" => $department
+            ":department" => $department,
+            ":image" => $folder.$filename,
         ]);
         header("Location: usersTable.php");
     } catch(PDOException $e) {

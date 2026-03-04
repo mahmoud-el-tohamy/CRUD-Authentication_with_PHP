@@ -2,7 +2,6 @@
     try {
         $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "tohamy", "Arcane.xxx1");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         
         $id = $_POST["id"];
         $fname = $_POST["fname"];
@@ -11,11 +10,30 @@
         $gender = $_POST["gender"];
         $department = $_POST["department"];
         $skills = implode(",", $_POST["skills"]);
-
         
+        $imagePath = null;
+        if(isset($_FILES["image"]) && $_FILES["image"]["name"] != ""){
+            $image = $_FILES["image"];
+            $allowed = ["image/jpeg","image/png"];
+            if(!in_array($image["type"], $allowed)){
+                die("Only JPG and PNG allowed");
+            }
+            if($image["size"] > 2000000){
+                die("Image too large");
+            }
+            $uploadFolder = "uploads/";
+            $imageName = time() . "_" . $image["name"];
+            move_uploaded_file($image["tmp_name"], $uploadFolder.$imageName);
+            $imagePath = $uploadFolder.$imageName;
+        }
 
-        $stmt = $pdo->prepare("UPDATE emp SET fname = ?, lname = ?, address = ?, gender = ?, department = ?, skills = ? WHERE id = ?");
-        $stmt->execute([$fname, $lname, $address, $gender, $department, $skills, $id]);
+    if($imagePath){
+        $stmt = $pdo->prepare("UPDATE emp SET fname=?, lname=?, address=?, gender=?, department=?, skills=?, image=? WHERE id=?");
+        $stmt->execute([$fname,$lname,$address,$gender,$department,$skills,$imagePath,$id]);
+    } else {
+        $stmt = $pdo->prepare("UPDATE emp SET fname=?, lname=?, address=?, gender=?, department=?, skills=? WHERE id=?");
+        $stmt->execute([$fname,$lname,$address,$gender,$department,$skills,$id]);
+    }
 
         header("Location: usersTable.php");
         exit();
