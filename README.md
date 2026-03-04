@@ -127,19 +127,19 @@ Each user has a detailed profile page displaying:
 day2/
 ├── 📷 uploads/                    # Uploaded profile images
 │
-├── 🔐 Authentication
-│   ├── login.php                  # Login page
-│   ├── checkLogin.php             # Authentication logic
-│   ├── logout.php                 # Logout
-│   └── registration.php           # Registration form
+│                              # 🔐 Authentication
+├── login.php                  # Login page
+├── checkLogin.php             # Authentication logic
+├── logout.php                 # Logout
+├── registration.php           # Registration form
 │
-├── 💾 User Data Management
-│   ├── save.php                   # Handles registration logic
-│   ├── usersTable.php             # Main dashboard
-│   ├── view.php                   # User profile page
-│   ├── edit.php                   # Edit user form
-│   ├── update.php                 # Update user data
-│   └── delete.php                 # Delete user
+│                              # 💾 User Data Management
+├── save.php                   # Handles registration logic
+├── usersTable.php             # Main dashboard
+├── view.php                   # User profile page
+├── edit.php                   # Edit user form
+├── update.php                 # Update user data
+├── delete.php                 # Delete user
 │
 └── 📖 README.md                   # Documentation
 ```
