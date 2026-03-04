@@ -24,7 +24,11 @@ The project demonstrates core backend concepts such as authentication, form vali
 
 ## ✨ Features
 
-### 🔐 Authentication
+This system includes multiple powerful features for user management and security.
+
+---
+
+## 🔐 Authentication
 
 - ✅ Login using **username and password**
 - ✅ Passwords stored securely using `password_hash()`
@@ -35,7 +39,7 @@ The project demonstrates core backend concepts such as authentication, form vali
 
 ---
 
-### 📝 User Registration
+## 📝 User Registration
 
 Users can create an account by providing:
 
@@ -55,7 +59,7 @@ All fields are validated to ensure correct input and improve security.
 
 ---
 
-### ✔️ Form Validation
+## ✔️ Form Validation
 
 **Both client-side and server-side validation** are applied for maximum security and user experience.
 
@@ -77,7 +81,7 @@ Clear validation messages guide the user when input is invalid.
 
 ---
 
-### 🖼️ Profile Picture Upload
+## 🖼️ Profile Picture Upload
 
 Users can upload a profile picture during registration.
 
@@ -90,7 +94,7 @@ Users can upload a profile picture during registration.
 
 ---
 
-### 🛠️ User Management (CRUD)
+## 🛠️ User Management (CRUD)
 
 After logging in, users can manage the system through a dashboard:
 
@@ -101,7 +105,7 @@ After logging in, users can manage the system through a dashboard:
 
 ---
 
-### 📊 User Profile Page
+## 📊 User Profile Page
 
 Each user has a detailed profile page displaying:
 
@@ -117,7 +121,7 @@ Each user has a detailed profile page displaying:
 
 ---
 
-### 📁 Project Structure
+## 📁 Project Structure
 
 ```
 day2/
