@@ -44,6 +44,13 @@
     </head>
     <body>
         <h2 style="width:fit-content; margin: 30px auto">Registration Form</h2>
+        <?php
+            if (isset($_GET["error"])) {
+                echo "<p style='color:red; text-align:center;'>Please fill all the fields and try again.</p>";
+            } else if (isset($_GET["invalid"])) {
+                echo "<p style='color:red; text-align:center;'>Invalid verification code.</p>";
+            }
+        ?>
         <form action="save.php" method="POST" enctype="multipart/form-data">
             First Name:
             <input type="text" name="fname" pattern="[A-Za-z]+" required><br><br>

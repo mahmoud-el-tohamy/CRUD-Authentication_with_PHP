@@ -30,10 +30,11 @@ move_uploaded_file($image["tmp_name"], $folder . $filename);
 
 if ($fname && $lname && $address && $gender && $department && $skills && $code && $realcode && $username && $password && $image) {
     if($code != $realcode){
-        die("Wrong Verification Code");
+        header("Location: registration.php?invalid=1");
+        exit();
     }
     try {
-        $pdo = new PDO("mysql:host=localhost;dbname=php_day3", "tohamy", "Arcane.xxx1");
+        $pdo = new PDO("mysql:host=localhost;dbname=php_day3", "admin", "MySQL.xxx1");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO emp
         (fname, lname, address, country, gender, skills, username, password, department, image)
@@ -57,7 +58,6 @@ if ($fname && $lname && $address && $gender && $department && $skills && $code &
         die("Connection failed: " . $e->getMessage());
     }
 } else {
-    echo "Fill All The Fields";
-    exit();
+    header("Location: registration.php?error=1");
 }
 ?>

@@ -11,7 +11,7 @@ if(!isset($_SESSION["user"])){
 
 try {
 
-    $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "tohamy", "Arcane.xxx1");
+    $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "admin", "MySQL.xxx1");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->query("SELECT id,fname,lname,department,image FROM emp ORDER BY id");
@@ -132,14 +132,14 @@ while($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo "<tr>";
 
     echo "<td>".$user["id"]."</td>";
-    echo "<td><img src='".$user["image"]."' width='60' style='border-radius:50%;'></td>";
+    echo "<td><img src='".$user["image"]."' width='60' height='60' style='border-radius:50%; object-fit:cover;'></td>";
     echo "<td>".$user["fname"]."</td>";
     echo "<td>".$user["lname"]."</td>";
     echo "<td>".$user["department"]."</td>";
 
     echo "<td><a href='view.php?id=".$user["id"]."'>View</a></td>";
     echo "<td><a href='edit.php?id=".$user["id"]."'>Edit</a></td>";
-    echo "<td><a href='delete.php?id=".$user["id"]."'>Delete</a></td>";
+    echo "<td><a href='delete.php?id=".$user["id"]."' onclick='return confirm(\"Are you sure?\")'>Delete</a></td>";
 
     echo "</tr>";
 }

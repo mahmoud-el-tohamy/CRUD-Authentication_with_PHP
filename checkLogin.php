@@ -3,7 +3,7 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
     try {
-        $pdo = new PDO("mysql:host=localhost;dbname=php_day3", "tohamy", "Arcane.xxx1");
+        $pdo = new PDO("mysql:host=localhost;dbname=php_day3", "admin", "MySQL.xxx1");
         $stmt = $pdo->prepare("SELECT * FROM emp WHERE username = :username");
         $stmt->execute([
             ":username" => $username

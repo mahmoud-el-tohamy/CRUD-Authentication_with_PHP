@@ -1,6 +1,6 @@
 <?php
     try {
-        $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "tohamy", "Arcane.xxx1");
+        $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "admin", "MySQL.xxx1");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $id = $_POST["id"];
@@ -10,7 +10,7 @@
         $gender = $_POST["gender"];
         $department = $_POST["department"];
         $skills = implode(",", $_POST["skills"]);
-        
+
         $imagePath = null;
         if(isset($_FILES["image"]) && $_FILES["image"]["name"] != ""){
             $image = $_FILES["image"];
