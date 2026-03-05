@@ -3,12 +3,12 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
     try {
-        $pdo = new PDO("mysql:host=localhost;dbname=php_day3", "admin", "MySQL.xxx1");
-        $stmt = $pdo->prepare("SELECT * FROM emp WHERE username = :username");
-        $stmt->execute([
+        require_once 'Database.php';
+        $db = Database::getInstance();
+        $users = $db->read("SELECT * FROM emp WHERE username = :username", [
             ":username" => $username
         ]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $users ? $users[0] : null;
         if($user && password_verify($password, $user["password"])){
             $_SESSION["user"] = $user["username"];
             header("Location: usersTable.php");

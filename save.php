@@ -34,14 +34,13 @@ if ($fname && $lname && $address && $gender && $department && $skills && $code &
         exit();
     }
     try {
-        $pdo = new PDO("mysql:host=localhost;dbname=php_day3", "admin", "MySQL.xxx1");
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        require_once 'Database.php';
+        $db = Database::getInstance();
         $sql = "INSERT INTO emp
         (fname, lname, address, country, gender, skills, username, password, department, image)
         VALUES
         (:fname, :lname, :address, :country, :gender, :skills, :username, :password, :department, :image)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
+        $db->create($sql, [
             ":fname"      => $fname,
             ":lname"      => $lname,
             ":address"    => $address,

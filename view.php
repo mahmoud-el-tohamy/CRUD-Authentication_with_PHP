@@ -11,14 +11,11 @@ if(!isset($_SESSION["user"])){
 
 try {
 
-    $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "admin", "MySQL.xxx1");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    require_once 'Database.php';
+    $db = Database::getInstance();
 
     $id = $_GET["id"];
-    $stmt = $pdo->prepare("SELECT * FROM emp WHERE id = ?");
-    $stmt->execute([$id]);
-
-    $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $user = $db->read("SELECT * FROM emp WHERE id = ?", [$id]);
 
     $skills = implode(", ", explode("|", $user[0]["skills"]));
 

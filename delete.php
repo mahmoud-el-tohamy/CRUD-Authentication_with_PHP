@@ -8,21 +8,19 @@ if(!isset($_SESSION["user"])){
 
 try {
 
-    $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "admin", "MySQL.xxx1");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    require_once 'Database.php';
+    $db = Database::getInstance();
 
     $id = $_GET["id"];
 
-    $stmt = $pdo->prepare("SELECT image FROM emp WHERE id = ?");
-    $stmt->execute([$id]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $users = $db->read("SELECT image FROM emp WHERE id = ?", [$id]);
+    $user = $users ? $users[0] : null;
 
     if($user && file_exists($user["image"])){
         unlink($user["image"]);
     }
 
-    $stmt = $pdo->prepare("DELETE FROM emp WHERE id = ?");
-    $stmt->execute([$id]);
+    $db->delete("DELETE FROM emp WHERE id = ?", [$id]);
 
     header("Location: usersTable.php");
     exit();

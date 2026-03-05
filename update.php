@@ -2,8 +2,8 @@
 
 try {
 
-    $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "admin", "MySQL.xxx1");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    require_once 'Database.php';
+    $db = Database::getInstance();
 
     $id = $_POST["id"];
     $fname = $_POST["fname"];
@@ -13,10 +13,9 @@ try {
     $department = $_POST["department"];
     $skills = implode(",", $_POST["skills"]);
 
-    $stmt = $pdo->prepare("SELECT image FROM emp WHERE id=?");
-    $stmt->execute([$id]);
-    $oldUser = $stmt->fetch(PDO::FETCH_ASSOC);
-    $oldImage = $oldUser["image"];
+    $users = $db->read("SELECT image FROM emp WHERE id=?", [$id]);
+    $oldUser = $users ? $users[0] : null;
+    $oldImage = $oldUser ? $oldUser["image"] : null;
 
     $imagePath = null;
     if(isset($_FILES["image"]) && $_FILES["image"]["name"] != ""){
@@ -38,11 +37,11 @@ try {
     }
 
     if($imagePath){
-        $stmt = $pdo->prepare("UPDATE emp SET fname=?, lname=?, address=?, gender=?, department=?, skills=?, image=? WHERE id=?");
-        $stmt->execute([$fname,$lname,$address,$gender,$department,$skills,$imagePath,$id]);
+        $db->update("UPDATE emp SET fname=?, lname=?, address=?, gender=?, department=?, skills=?, image=? WHERE id=?", 
+            [$fname,$lname,$address,$gender,$department,$skills,$imagePath,$id]);
     } else {
-        $stmt = $pdo->prepare("UPDATE emp SET fname=?, lname=?, address=?, gender=?, department=?, skills=? WHERE id=?");
-        $stmt->execute([$fname,$lname,$address,$gender,$department,$skills,$id]);
+        $db->update("UPDATE emp SET fname=?, lname=?, address=?, gender=?, department=?, skills=? WHERE id=?", 
+            [$fname,$lname,$address,$gender,$department,$skills,$id]);
     }
 
     header("Location: usersTable.php");

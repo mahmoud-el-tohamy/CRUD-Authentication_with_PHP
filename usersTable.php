@@ -11,10 +11,9 @@ if(!isset($_SESSION["user"])){
 
 try {
 
-    $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "admin", "MySQL.xxx1");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $stmt = $pdo->query("SELECT id,fname,lname,department,image FROM emp ORDER BY id");
+    require_once 'Database.php';
+    $db = Database::getInstance();
+    $users = $db->read("SELECT id,fname,lname,department,image FROM emp ORDER BY id");
 
 } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
@@ -127,7 +126,7 @@ try {
 
 <?php
 
-while($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
+foreach($users as $user) {
 
     echo "<tr>";
 
