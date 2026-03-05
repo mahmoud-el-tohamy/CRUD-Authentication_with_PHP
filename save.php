@@ -12,8 +12,6 @@ $skills = isset($_POST["skills"])
             : "";
 $code       = $_POST["code"];
 $realcode   = $_POST["realcode"];
-$created_at = date("Y-m-d H:i:s");
-
 
 $image = $_FILES["image"];
 $allowed = ["image/jpeg","image/png"];

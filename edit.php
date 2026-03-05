@@ -12,21 +12,13 @@
     if(!isset($_GET["id"])){
         die("Invalid Request");
     }
-    try {
+    require_once 'Database.php';
+    $db = Database::getInstance();
 
-        $pdo = new PDO("mysql:host=localhost;dbname=php_day3;charset=utf8", "admin", "MySQL.xxx1");
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $id = $_GET["id"];
+    $user = $db->read("SELECT * FROM emp WHERE id = ?", [$id]);
+    $skills = explode("|", $user[0]["skills"]);
 
-        $id = $_GET["id"];
-        $stmt = $pdo->prepare("SELECT * FROM emp WHERE id = ?");
-        $stmt->execute([$id]);
-
-        $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $skills = explode("|", $user[0]["skills"]);
-
-    } catch(PDOException $e) {
-        die("Connection failed: " . $e->getMessage());
-    }
 ?>
 <!DOCTYPE html>
 <html>
